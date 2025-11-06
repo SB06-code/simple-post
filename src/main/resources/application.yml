@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: simple-post
+  profiles:
+    active: local
