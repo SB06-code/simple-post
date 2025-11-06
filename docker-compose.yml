@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  app:
+    image: gted221/simple-post:0.1
+    ports:
+      - "8081:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/simple_post_db
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=mypassword
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=simple_post_db
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+
+volumes:
+  pg-data:
+
+# docker volume create pg-data
+# docker run -d -p 5433:5432 \
+# -e POSTGRES_DB=simple_post_db \
+# -e POSTGRES_USER=myuser \
+# -e POSTGRES_PASSWORD=mypassword \
+# -v pg-data:/var/lib/postgresql/data \
+# postgres:17
