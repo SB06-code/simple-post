@@ -32,6 +32,7 @@ public class PostService {
         Post post = findPostById(id);
         verifyPassword(post, request.password());
         post.update(request.title(), request.content(), request.tags());
+        postRepository.save(post);
         return PostResponse.from(post);
     }
 

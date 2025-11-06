@@ -33,5 +33,22 @@ dependencies {
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags 'external'
+    }
 }
+
+tasks.register('intgTest', Test) {
+
+    group = 'verification'
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+
+    useJUnitPlatform {
+        includeTags 'intg'
+    }
+
+    mustRunAfter tasks.named('build')
+}
+

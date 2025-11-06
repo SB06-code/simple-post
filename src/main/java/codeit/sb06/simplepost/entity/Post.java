@@ -47,6 +47,9 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @Column(nullable = false)
+    private int viewCount = 0;
+
     @Builder
     public Post(String author, String title, String content, String password, List<String> tags) {
         this.author = author;
@@ -60,5 +63,9 @@ public class Post {
         this.title = title;
         this.content = content;
         this.tags = tags;
+    }
+
+    public void increaseViewCount() {
+        viewCount++;
     }
 }
